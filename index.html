@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AsuteSever Official</title>
+    <link rel="icon" href="https://www.image2url.com/r2/default/images/1776182427434-c0a6f0f3-9065-4320-81a1-6f4458fc1d5e.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { --primary: #f1c40f; --glass: rgba(10, 10, 10, 0.9); }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #000; color: #fff; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        
+        /* Video Background */
+        #bg-video { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; object-fit: cover; filter: brightness(0.4); }
+        
+        /* Container Glassmorphism Profesional */
+        .container { 
+            background: var(--glass); 
+            backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            padding: 40px; 
+            border-radius: 20px; 
+            width: 90%; 
+            max-width: 400px; 
+            text-align: center; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+            animation: slideUp 0.6s ease;
+        }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        h1 { font-family: 'Orbitron', sans-serif; color: var(--primary); margin-bottom: 20px; font-size: 1.6rem; letter-spacing: 2px; }
+        p { font-size: 0.9rem; margin-bottom: 25px; color: #ccc; line-height: 1.6; }
+        
+        input { 
+            width: 100%; padding: 16px; background: rgba(255,255,255,0.05); 
+            border: 1px solid #444; border-radius: 12px; color: #fff; 
+            margin-bottom: 20px; text-align: center; outline: none; font-size: 1rem;
+        }
+
+        .btn { 
+            width: 100%; padding: 16px; border: none; border-radius: 12px; 
+            cursor: pointer; font-weight: 700; background: var(--primary); 
+            color: #000; text-transform: uppercase; transition: 0.3s; letter-spacing: 1px;
+        }
+        .btn:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(241, 196, 15, 0.5); }
+        .btn-success { background: #2ecc71; color: #fff; }
+        
+        .hidden { display: none; }
+        
+        .feature-list { 
+            text-align: left; background: rgba(255,255,255,0.04); 
+            padding: 15px; border-radius: 12px; margin-bottom: 20px; font-size: 0.8rem;
+        }
+        .feature-list div { margin-bottom: 8px; }
+        .feature-list i { color: var(--primary); margin-right: 10px; }
+    </style>
+</head>
+<body>
+
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="https://files.catbox.moe/agtyzw.mp4" type="video/mp4">
+    </video>
+
+    <div class="container">
+        <div id="page1">
+            <h1>AsuteSever</h1>
+            <p>Masukkan UID Anda sesuai instruksi di dalam game untuk aktivasi akses Sultan.</p>
+            <input type="text" id="uid" placeholder="MASUKKAN UID ANDA">
+            <button class="btn" onclick="validateID()">Verifikasi Sever</button>
+        </div>
+
+        <div id="page2" class="hidden">
+            <h1>Processing...</h1>
+            <p>Menghubungkan UID ke database AsuteSever Official.</p>
+            <button class="btn" id="cont-btn" onclick="handleCont()">Continue (<span id="count">4</span>)</button>
+        </div>
+
+        <div id="page3" class="hidden">
+            <h1 style="color: #2ecc71;">SUCCESS</h1>
+            <div class="feature-list">
+                <div><i class="fa-solid fa-gem"></i> Unlimited Coins & Diamonds</div>
+                <div><i class="fa-solid fa-shirt"></i> Unlock All Skins & Bundles</div>
+                <div><i class="fa-solid fa-crown"></i> Status Sultan Prime 8</div>
+                <div><i class="fa-solid fa-eye"></i> All Visible in FF & FF Max</div>
+            </div>
+            <p>Akses Aktif Selama 1 Jam.</p>
+            <button class="btn btn-success" onclick="launch()">Masuk Game Asute Sever</button>
+        </div>
+    </div>
+
+    <script>
+        let counter = 4;
+        function showPage(n) {
+            document.querySelectorAll('.container > div').forEach(d => d.classList.add('hidden'));
+            document.getElementById('page'+n).classList.remove('hidden');
+        }
+        function validateID() {
+            if(document.getElementById('uid').value.length < 5) { alert("UID Tidak Valid!"); return; }
+            showPage(2);
+        }
+        function handleCont() {
+            counter--;
+            document.getElementById('count').innerText = counter;
+            if(counter === 0) showPage(3);
+        }
+        function launch() {
+            window.location.href = "intent://com.dts.freefiremax/#Intent;scheme=package;package=com.dts.freefiremax;end";
+        }
+    </script>
+</body>
+</html>
